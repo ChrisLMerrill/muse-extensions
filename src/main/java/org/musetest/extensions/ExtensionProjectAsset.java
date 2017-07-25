@@ -25,8 +25,20 @@ public class ExtensionProjectAsset
         _url = url;
         }
 
+    
+    public byte[] getContent()
+        {
+        return _content;
+        }
+
+    public void setContent(byte[] content)
+        {
+        _content = content;
+        }
+
     private String _default_path;
     private String _url;
+    private byte[] _content;
     }
 
 

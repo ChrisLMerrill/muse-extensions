@@ -1,8 +1,13 @@
 package org.musetest.extensions.webservice;
 
+import org.musetest.extensions.*;
+
+import java.util.*;
+
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
+@SuppressWarnings("unused")  // used by web services and UI
 public class ExtensionVersionCreateRequest
     {
     private ExtensionVersionCreateRequest() { }  // required for de/serialization
@@ -33,8 +38,19 @@ public class ExtensionVersionCreateRequest
         _version_name = version_name;
         }
 
+    public List<ExtensionProjectAsset> getAssets()
+        {
+        return _assets;
+        }
+
+    public void setAssets(List<ExtensionProjectAsset> assets)
+        {
+        _assets = assets;
+        }
+
     private long _extension_id;
     private String _version_name;
+    private List<ExtensionProjectAsset> _assets;
     }
 
 

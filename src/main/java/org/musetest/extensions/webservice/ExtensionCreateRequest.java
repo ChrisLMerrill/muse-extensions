@@ -3,6 +3,7 @@ package org.musetest.extensions.webservice;
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
+@SuppressWarnings("unused")  // used by web services and UI
 public class ExtensionCreateRequest
     {
     public ExtensionCreateRequest(String name, String author_email, String auth_token)
