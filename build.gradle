@@ -2,9 +2,15 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 repositories {
-    jcenter()
     mavenLocal()
+    jcenter()
 }
+
+tasks.withType(JavaCompile)
+    {
+    sourceCompatibility = '1.7'
+    targetCompatibility = '1.7'
+    }
 
 version = 0.1
 group = 'org.musetest'
