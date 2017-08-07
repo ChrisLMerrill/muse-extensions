@@ -1,23 +1,23 @@
-// Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'maven'
 
-// In this section you declare where to find the dependencies of your project
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenLocal()
 }
 
 version = 0.1
 group = 'org.musetest'
 
 dependencies {
-    // The production code uses the SLF4J logging API at compile time
+    compile 'org.musetest:muse-core:0.10+'
+
+    compile 'com.google.guava:guava:19.0'
+    compile 'org.glassfish.jersey.core:jersey-client:2.25.1'
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1'
     compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'commons-io:commons-io:2.5'
 
-    // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
 

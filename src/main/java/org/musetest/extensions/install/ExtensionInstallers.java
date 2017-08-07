@@ -17,7 +17,7 @@ public class ExtensionInstallers
             public void install(ExtensionInfo extension, File folder) throws IOException
                 {
                 for (ExtensionProjectAsset asset : extension.getAssets())
-                    AssetInstallers.find(asset).install(asset, folder);
+                    AssetInstallers.find(asset).install(asset, folder, new ExtensionInstallLog());
                 }
 
             @Override

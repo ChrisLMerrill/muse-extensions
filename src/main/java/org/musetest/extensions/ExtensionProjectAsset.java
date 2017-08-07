@@ -1,5 +1,7 @@
 package org.musetest.extensions;
 
+import java.util.*;
+
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
@@ -36,9 +38,34 @@ public class ExtensionProjectAsset
         _content = content;
         }
 
+    public List<AssetInstallInstruction> getInstallInstructions()
+        {
+        return _instructions;
+        }
+
+    public void setInstallInstructions(List<AssetInstallInstruction> instructions)
+        {
+        _instructions = instructions;
+        }
+
+    @Override
+    public boolean equals(Object obj)
+        {
+        if (obj instanceof ExtensionProjectAsset)
+            {
+            ExtensionProjectAsset other = (ExtensionProjectAsset) obj;
+            return Objects.equals(_default_path, other._default_path)
+                && Objects.equals(_url, other._url)
+                && Arrays.equals(_content, other._content);
+
+            }
+        return false;
+        }
+
     private String _default_path;
     private String _url;
     private byte[] _content;
+    private List<AssetInstallInstruction> _instructions;
     }
 
 

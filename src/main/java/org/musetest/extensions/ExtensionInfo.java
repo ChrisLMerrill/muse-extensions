@@ -1,5 +1,7 @@
 package org.musetest.extensions;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.*;
 
 /**
@@ -116,6 +118,12 @@ public class ExtensionInfo
     public void setAssets(List<ExtensionProjectAsset> assets)
         {
         _assets = assets;
+        }
+
+    @JsonIgnore
+    public String getDisplayNameVersion()
+        {
+        return _ext_name + " " + _ver_name;
         }
 
     private long _ext_id;

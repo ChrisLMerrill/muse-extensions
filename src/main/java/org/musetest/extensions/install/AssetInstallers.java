@@ -3,7 +3,6 @@ package org.musetest.extensions.install;
 import org.musetest.extensions.*;
 
 import java.io.*;
-import java.net.*;
 
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
@@ -15,29 +14,13 @@ public class AssetInstallers
         return new AssetInstaller()
             {
             @Override
-            public void install(ExtensionProjectAsset asset, File folder) throws IOException
+            public void install(ExtensionProjectAsset asset, File folder, ExtensionInstallLog log) throws IOException
                 {
-                if (asset.getContent() != null)
+                for (AssetInstallInstruction instruction : asset.getInstallInstructions())
                     {
-                    File destination = new File(folder, asset.getDefaultPath());
-                    FileOutputStream outstream = new FileOutputStream(destination);
-                    outstream.write(asset.getContent());
-                    outstream.close();
-                    return;
-                    }
-                if (asset.getUrl() != null)
-                    {
-                    HttpURLConnection connection = (HttpURLConnection) new URL(asset.getUrl()).openConnection();
-                    InputStream instream = connection.getInputStream();
-                    File destination = new File(folder, asset.getDefaultPath());
-                    FileOutputStream outstream = new FileOutputStream(destination);
-                    while (instream.available() > 0)
-                        {
-                        byte[] bytes = new byte[instream.available()];
-                        outstream.write(instream.read(bytes));
-                        }
-                    outstream.close();
-                    instream.close();
+                    AssetInstallerAction action = AssetInstallerActions.findImplementation(AssetInstallerAction.Type.valueOf(instruction.getActionName()));
+                    if (action != null && !action.performAction(asset, folder, instruction.getParameters(), log))
+                        log.recordActionFailure(instruction);
                     }
                 }
 
@@ -48,7 +31,9 @@ public class AssetInstallers
                 if (!target.delete())
                     throw new IOException("Unable to remove asset at: " + target.getAbsolutePath());
                 }
-            };
+            }
+
+            ;
         }
     }
 
