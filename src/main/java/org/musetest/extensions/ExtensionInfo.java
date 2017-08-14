@@ -100,16 +100,6 @@ public class ExtensionInfo
         _ver_date = ver_date;
         }
 
-    public Date getInstallDate()
-        {
-        return _install_date;
-        }
-
-    public void setInstallDate(Date install_date)
-        {
-        _install_date = install_date;
-        }
-
     public List<ExtensionProjectAsset> getAssets()
         {
         return _assets;
@@ -126,6 +116,24 @@ public class ExtensionInfo
         return _ext_name + " " + _ver_name;
         }
 
+    @Override
+    public boolean equals(Object obj)
+        {
+        if (!(obj instanceof ExtensionInfo))
+            return false;
+
+        ExtensionInfo other = (ExtensionInfo) obj;
+        return Objects.equals(_ext_id, other._ext_id)
+            && Objects.equals(_ext_name, other._ext_name)
+            && Objects.equals(_ext_desc, other._ext_desc)
+            && Objects.equals(_ext_author, other._ext_author)
+            && Objects.equals(_ver_id, other._ver_id)
+            && Objects.equals(_ver_name, other._ver_name)
+            && Objects.equals(_ver_date, other._ver_date)
+            && Objects.equals(_ver_desc, other._ver_desc)
+            && Objects.equals(_assets, other._assets);
+        }
+
     private long _ext_id;
     private String _ext_name;
     private String _ext_desc;
@@ -135,8 +143,6 @@ public class ExtensionInfo
     private String _ver_name;
     private String _ver_desc;
     private Date _ver_date;
-
-    private Date _install_date;
 
     private List<ExtensionProjectAsset> _assets;
     }

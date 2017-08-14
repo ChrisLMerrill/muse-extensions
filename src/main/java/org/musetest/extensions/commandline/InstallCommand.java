@@ -4,6 +4,7 @@ import io.airlift.airline.*;
 import org.musetest.core.commandline.*;
 import org.musetest.extensions.*;
 import org.musetest.extensions.install.*;
+import org.musetest.extensions.registry.*;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.*;
@@ -49,8 +50,24 @@ public class InstallCommand extends MuseCommand
             if (info == null)
                 return;
 
+            // update the extension registry
+            final File project_folder = new File(System.getProperty("user.dir"));
+            final File extreg_folder = new File(project_folder, ".extreg");
+            if (!extreg_folder.exists() && !extreg_folder.mkdirs())
+                {
+                System.out.println("Unable to create the extension registry folder: " + extreg_folder.getPath());
+                return;
+                }
+
+            // install the extension
             System.out.println(String.format("Installing extension: %s...", info.getDisplayNameVersion()));
-            ExtensionInstallers.find(info).install(info, new File(System.getProperty("user.dir")));
+            ExtensionInstallers.find(info).install(info, project_folder);
+
+            ExtensionRegistry registry = new ExtensionRegistry(extreg_folder);
+            final ExtensionRegistryEntry entry = new ExtensionRegistryEntry();
+            entry.setInfo(info);
+            registry.add(entry);
+
             System.out.println("done.");
             }
         catch (Exception e)
