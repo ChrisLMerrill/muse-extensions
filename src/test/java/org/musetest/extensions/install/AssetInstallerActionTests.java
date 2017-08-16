@@ -21,7 +21,7 @@ public class AssetInstallerActionTests
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
         asset.setUrl("http://ide4selenium.com/favicon.ico");
         asset.setDefaultPath("favicon.ico");
-        ExtensionInstallLog log = new ExtensionInstallLog();
+        ExtensionInstallLog log = new ExtensionInstallLog(_folder);
 
         boolean result = new DownloadAction().performAction(asset, _folder, null, log);
 
@@ -38,7 +38,7 @@ public class AssetInstallerActionTests
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
         asset.setUrl("http://ide4selenium.com/blah_missing_url");
         asset.setDefaultPath("emptyfile.txt");
-        ExtensionInstallLog log = new ExtensionInstallLog();
+        ExtensionInstallLog log = new ExtensionInstallLog(_folder);
 
         boolean result = new DownloadAction().performAction(asset, _folder, null, log);
 
@@ -51,7 +51,7 @@ public class AssetInstallerActionTests
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
         final String archive_filename = "testarchive.zip";
         asset.setDefaultPath(archive_filename);
-        ExtensionInstallLog log = new ExtensionInstallLog();
+        ExtensionInstallLog log = new ExtensionInstallLog(_folder);
 
         // copy the test file into the project folder
         Files.copy(getClass().getClassLoader().getResourceAsStream(archive_filename), new File(_folder, archive_filename).toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -74,7 +74,7 @@ public class AssetInstallerActionTests
         final String archive_filename = "testarchive.zip";
         final String asset_path = "subfolder/" + archive_filename;
         asset.setDefaultPath(asset_path);
-        ExtensionInstallLog log = new ExtensionInstallLog();
+        ExtensionInstallLog log = new ExtensionInstallLog(_folder);
 
         // copy the test file into the project folder
         File subfolder = new File(_folder, "subfolder");
@@ -93,7 +93,7 @@ public class AssetInstallerActionTests
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
         final String archive_filename = "testarchive.zip";
         asset.setDefaultPath(archive_filename);
-        ExtensionInstallLog log = new ExtensionInstallLog();
+        ExtensionInstallLog log = new ExtensionInstallLog(_folder);
 
         // copy the test file into the project folder
         Files.copy(getClass().getClassLoader().getResourceAsStream(archive_filename), new File(_folder, archive_filename).toPath(), StandardCopyOption.REPLACE_EXISTING);

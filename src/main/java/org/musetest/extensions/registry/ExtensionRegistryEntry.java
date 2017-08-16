@@ -1,6 +1,7 @@
 package org.musetest.extensions.registry;
 
 import org.musetest.extensions.*;
+import org.musetest.extensions.install.*;
 
 import java.util.*;
 
@@ -19,6 +20,16 @@ public class ExtensionRegistryEntry
         _info = info;
         }
 
+    public ExtensionInstallLog getLog()
+        {
+        return _log;
+        }
+
+    public void setLog(ExtensionInstallLog log)
+        {
+        _log = log;
+        }
+
     @Override
     public boolean equals(Object obj)
         {
@@ -29,6 +40,8 @@ public class ExtensionRegistryEntry
         }
 
     private ExtensionInfo _info;
+    private ExtensionInstallLog _log;
     }
+
 
 

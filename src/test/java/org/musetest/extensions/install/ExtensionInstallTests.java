@@ -18,7 +18,7 @@ public class ExtensionInstallTests
         {
         ExtensionProjectAsset asset = createAsset("asset.txt", "abc123");
         final AssetInstaller installer = AssetInstallers.find(asset);
-        installer.install(asset, _folder, new ExtensionInstallLog());
+        installer.install(asset, _folder, new ExtensionInstallLog(_folder));
         verifyAssetInstalled(asset, true);
 
         // remove it

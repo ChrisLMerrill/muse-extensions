@@ -14,10 +14,14 @@ public class ExtensionInstallers
         return new ExtensionInstaller()
             {
             @Override
-            public void install(ExtensionInfo extension, File folder) throws IOException
+            public ExtensionInstallLog install(ExtensionInfo extension, File folder) throws IOException
                 {
+                final ExtensionInstallLog log = new ExtensionInstallLog(folder);
                 for (ExtensionProjectAsset asset : extension.getAssets())
-                    AssetInstallers.find(asset).install(asset, folder, new ExtensionInstallLog());
+                    {
+                    AssetInstallers.find(asset).install(asset, folder, log);
+                    }
+                return log;
                 }
 
             @Override

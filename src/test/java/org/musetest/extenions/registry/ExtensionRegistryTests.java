@@ -1,8 +1,9 @@
-package org.musetest.extensions.install;
+package org.musetest.extenions.registry;
 
 import org.apache.commons.io.*;
 import org.junit.*;
 import org.musetest.extensions.*;
+import org.musetest.extensions.install.*;
 import org.musetest.extensions.registry.*;
 
 import java.io.*;
@@ -41,6 +42,18 @@ public class ExtensionRegistryTests
         // remove an extension
         registry.remove(entry2);
         checkRegistryAndNewRegistry(registry, 0);
+        }
+
+    @Test
+    public void filesRecordedInRegistryEntry()
+        {
+        File folder = new File(System.getProperty("user.dir"));
+        ExtensionInstallLog log = new ExtensionInstallLog(folder);
+        log.recordFileInstalled(new File(folder, "file1"));
+        log.recordFileInstalled(new File(folder, "file2"));
+
+
+        Assert.fail("this test is not yet finished"); // TODO
         }
 
     private void checkRegistryAndNewRegistry(ExtensionRegistry registry, int num_entries, ExtensionRegistryEntry... entries) throws ExtensionRegistryException

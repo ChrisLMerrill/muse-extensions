@@ -36,8 +36,7 @@ public class UnzipAction implements AssetInstallerAction
                 try (OutputStream outstream = new FileOutputStream(target_file); InputStream instream = zipfile.getInputStream(entry))
                     {
                     ByteStreams.copy(instream, outstream);
-                    instream.close();
-                    outstream.close();
+                    log.recordFileInstalled(target_file);
                     }
                 }
             zipfile.close();

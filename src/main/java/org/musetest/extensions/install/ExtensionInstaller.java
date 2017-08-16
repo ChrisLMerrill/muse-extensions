@@ -9,7 +9,7 @@ import java.io.*;
  */
 public interface ExtensionInstaller
     {
-    void install(ExtensionInfo extension, File folder) throws IOException;
+    ExtensionInstallLog install(ExtensionInfo extension, File folder) throws IOException;
     void remove(ExtensionInfo extension, File folder) throws IOException;
     }
 

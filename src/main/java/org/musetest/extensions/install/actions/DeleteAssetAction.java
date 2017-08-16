@@ -23,7 +23,10 @@ public class DeleteAssetAction implements AssetInstallerAction
         File target = new File(folder, asset.getDefaultPath());
         if (!target.exists())
             return false;
-        return target.delete();
+        final boolean success = target.delete();
+        if (success)
+            log.recordFileDeleted(target);
+        return success;
         }
     }
 
