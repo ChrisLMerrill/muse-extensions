@@ -56,9 +56,8 @@ public class ExtensionRegistry
         final File file = new File(_folder, filename);
         if (file.exists())
             throw new ExtensionRegistryException(String.format("extension is already in the registry, filename=%s", filename));
-        try
+        try (FileOutputStream outstream = new FileOutputStream(file))
             {
-            FileOutputStream outstream = new FileOutputStream(file);
             mapper.writerWithDefaultPrettyPrinter().writeValue(outstream, entry);
             }
         catch (IOException e)

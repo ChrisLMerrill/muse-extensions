@@ -1,5 +1,6 @@
 package org.musetest.extensions.install;
 
+import com.fasterxml.jackson.annotation.*;
 import org.musetest.extensions.*;
 import org.musetest.extensions.util.*;
 
@@ -11,6 +12,11 @@ import java.util.*;
  */
 public class ExtensionInstallLog
     {
+    @SuppressWarnings("unused")
+    private ExtensionInstallLog() // needed for deserialization
+        {
+        }
+
     public ExtensionInstallLog(File folder)
         {
         _folder = folder;
@@ -19,6 +25,12 @@ public class ExtensionInstallLog
     public int getNumberFilesInstalled()
         {
         return _files_installed;
+        }
+
+    // only for JSON deserialization
+    void setNumberFilesInstalled(int files_installed)
+        {
+        _files_installed = files_installed;
         }
 
     public void recordFileInstalled(File destination)
@@ -40,6 +52,12 @@ public class ExtensionInstallLog
     public int getNumberActionFailures()
         {
         return _failed_actions;
+        }
+
+    // only for JSON deserialization
+    void setNumberActionFailures(int failed_actions)
+        {
+        _failed_actions = failed_actions;
         }
 
     public String getInstalledFilePath(int index)

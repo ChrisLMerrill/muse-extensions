@@ -7,9 +7,9 @@ import java.io.*;
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
-class ExtensionUninstallers
+public class ExtensionUninstallers
     {
-    static ExtensionUninstaller findUninstaller(ExtensionRegistryEntry entry, File folder)
+    public static ExtensionUninstaller findUninstaller(ExtensionRegistryEntry entry, File folder)
         {
         return new DeleteFilesUninstaller();
         }

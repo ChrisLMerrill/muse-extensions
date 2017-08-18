@@ -20,7 +20,7 @@ public class ExtensionRegistryEntry
         {
         }
 
-    ExtensionInfo getInfo()
+    public ExtensionInfo getInfo()
         {
         return _info;
         }
