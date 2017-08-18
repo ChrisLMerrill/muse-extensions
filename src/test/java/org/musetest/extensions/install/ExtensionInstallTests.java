@@ -44,7 +44,8 @@ public class ExtensionInstallTests
 
         // remove it
         final ExtensionRegistryEntry entry = new ExtensionRegistryEntry(new ExtensionInfo(1L, "ext1", "me", 1L, "1.0"), log);
-        ExtensionUninstallers.findUninstaller(entry, _folder).uninstall(entry, _folder);
+        final ExtensionUninstallResult result = ExtensionUninstallers.findUninstaller(entry, _folder).uninstall(entry, _folder);
+        Assert.assertTrue(result.isSuccess());
         verifyAssetPresent(asset1, false);
         verifyAssetPresent(asset2, false);
         }

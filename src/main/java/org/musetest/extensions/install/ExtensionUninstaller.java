@@ -1,7 +1,6 @@
 package org.musetest.extensions.install;
 
 import org.musetest.extensions.registry.*;
-import sun.misc.*;
 
 import java.io.*;
 
@@ -10,7 +9,7 @@ import java.io.*;
  */
 public interface ExtensionUninstaller
     {
-    void uninstall(ExtensionRegistryEntry extension, File folder) throws ExtensionInstallationException;
+    ExtensionUninstallResult uninstall(ExtensionRegistryEntry extension, File folder);
     }
 
 
