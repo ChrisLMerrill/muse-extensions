@@ -27,6 +27,7 @@ public class CreateFileAction implements AssetInstallerAction
             FileOutputStream outstream = new FileOutputStream(target);
             outstream.write(asset.getContent());
             outstream.close();
+            log.recordFileInstalled(target);
             return true;
             }
         catch (IOException e)

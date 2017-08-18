@@ -10,6 +10,5 @@ import java.io.*;
 public interface ExtensionInstaller
     {
     ExtensionInstallLog install(ExtensionInfo extension, File folder) throws IOException;
-    void remove(ExtensionInfo extension, File folder) throws IOException;
     }
 

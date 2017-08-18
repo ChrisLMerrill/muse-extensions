@@ -7,9 +7,9 @@ import java.io.*;
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
-public class AssetInstallers
+class AssetInstallers
     {
-    public static AssetInstaller find(ExtensionProjectAsset asset)
+    static AssetInstaller find(@SuppressWarnings("unused") ExtensionProjectAsset asset)  // expecting future use
         {
         return new AssetInstaller()
             {
@@ -23,17 +23,7 @@ public class AssetInstallers
                         log.recordActionFailure(instruction);
                     }
                 }
-
-            @Override
-            public void remove(ExtensionProjectAsset asset, File folder) throws IOException
-                {
-                File target = new File(folder, asset.getDefaultPath());
-                if (!target.delete())
-                    throw new IOException("Unable to remove asset at: " + target.getAbsolutePath());
-                }
-            }
-
-            ;
+            };
         }
     }
 

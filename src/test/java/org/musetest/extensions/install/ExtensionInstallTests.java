@@ -3,6 +3,9 @@ package org.musetest.extensions.install;
 import org.apache.commons.io.*;
 import org.junit.*;
 import org.musetest.extensions.*;
+import org.musetest.extensions.ExtensionInfo;
+import org.musetest.extensions.registry.*;
+import sun.misc.*;
 
 import java.io.*;
 import java.nio.file.*;
@@ -14,20 +17,16 @@ import java.util.*;
 public class ExtensionInstallTests
     {
     @Test
-    public void installAndRemoveAsset() throws IOException
+    public void installAsset() throws IOException, ExtensionRegistryException
         {
         ExtensionProjectAsset asset = createAsset("asset.txt", "abc123");
         final AssetInstaller installer = AssetInstallers.find(asset);
         installer.install(asset, _folder, new ExtensionInstallLog(_folder));
-        verifyAssetInstalled(asset, true);
-
-        // remove it
-        installer.remove(asset, _folder);
-        verifyAssetInstalled(asset, false);
+        verifyAssetPresent(asset, true);
         }
 
     @Test
-    public void installAndRemove() throws IOException
+    public void installAndRemoveExtension() throws IOException, ExtensionInstallationException
         {
         ExtensionProjectAsset asset1 = createAsset("asset1.txt", "content1");
         ExtensionProjectAsset asset2 = createAsset("asset2.txt", "content2");
@@ -38,16 +37,16 @@ public class ExtensionInstallTests
         extension.setAssets(assets);
 
         final ExtensionInstaller installer = ExtensionInstallers.find(extension);
-        installer.install(extension, _folder);
+        ExtensionInstallLog log = installer.install(extension, _folder);
 
-        verifyAssetInstalled(asset1, true);
-        verifyAssetInstalled(asset2, true);
-        // TODO verify the extension registry was updated
+        verifyAssetPresent(asset1, true);
+        verifyAssetPresent(asset2, true);
 
-        installer.remove(extension, _folder);
-        verifyAssetInstalled(asset1, false);
-        verifyAssetInstalled(asset2, false);
-        // TODO verify the extension registry was restored
+        // remove it
+        final ExtensionRegistryEntry entry = new ExtensionRegistryEntry(new ExtensionInfo(1L, "ext1", "me", 1L, "1.0"), log);
+        ExtensionUninstallers.findUninstaller(entry, _folder).uninstall(entry, _folder);
+        verifyAssetPresent(asset1, false);
+        verifyAssetPresent(asset2, false);
         }
 
     /*
@@ -90,7 +89,7 @@ public class ExtensionInstallTests
         return asset;
         }
 
-    private void verifyAssetInstalled(ExtensionProjectAsset asset, boolean installed) throws IOException
+    private void verifyAssetPresent(ExtensionProjectAsset asset, boolean installed) throws IOException
         {
         final File installed_asset = new File(_folder, asset.getDefaultPath());
         boolean exists = installed_asset.exists();

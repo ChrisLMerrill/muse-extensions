@@ -9,7 +9,7 @@ import java.io.*;
  */
 public class ExtensionInstallers
     {
-    public static ExtensionInstaller find(ExtensionInfo extension)
+    public static ExtensionInstaller find(@SuppressWarnings("unused") ExtensionInfo extension)  // expecting future use
         {
         return new ExtensionInstaller()
             {
@@ -22,13 +22,6 @@ public class ExtensionInstallers
                     AssetInstallers.find(asset).install(asset, folder, log);
                     }
                 return log;
-                }
-
-            @Override
-            public void remove(ExtensionInfo extension, File folder) throws IOException
-                {
-                for (ExtensionProjectAsset asset : extension.getAssets())
-                    AssetInstallers.find(asset).remove(asset, folder);
                 }
             };
         }

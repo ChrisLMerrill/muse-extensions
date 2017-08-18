@@ -10,7 +10,17 @@ import java.util.*;
  */
 public class ExtensionRegistryEntry
     {
-    public ExtensionInfo getInfo()
+    public ExtensionRegistryEntry(ExtensionInfo info, ExtensionInstallLog log)
+        {
+        _info = info;
+        _log = log;
+        }
+
+    public ExtensionRegistryEntry()
+        {
+        }
+
+    ExtensionInfo getInfo()
         {
         return _info;
         }
