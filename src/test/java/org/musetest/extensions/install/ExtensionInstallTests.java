@@ -30,17 +30,21 @@ public class ExtensionInstallTests
         {
         ExtensionProjectAsset asset1 = createAsset("asset1.txt", "content1");
         ExtensionProjectAsset asset2 = createAsset("asset2.txt", "content2");
+        ExtensionProjectAsset asset3 = createAsset("subdir1/asset3.txt", "content3");
         ExtensionInfo extension = new ExtensionInfo(1L, "ext1", "me", 1L, "1.0");
         List<ExtensionProjectAsset> assets = new ArrayList<>();
         assets.add(asset1);
         assets.add(asset2);
+        assets.add(asset3);
         extension.setAssets(assets);
 
         final ExtensionInstaller installer = ExtensionInstallers.find(extension);
         ExtensionInstallLog log = installer.install(extension, _folder);
+        Assert.assertEquals(0, log.getNumberActionFailures());
 
         verifyAssetPresent(asset1, true);
         verifyAssetPresent(asset2, true);
+        verifyAssetPresent(asset3, true);
 
         // remove it
         final ExtensionRegistryEntry entry = new ExtensionRegistryEntry(new ExtensionInfo(1L, "ext1", "me", 1L, "1.0"), log);
@@ -48,6 +52,8 @@ public class ExtensionInstallTests
         Assert.assertTrue(result.isSuccess());
         verifyAssetPresent(asset1, false);
         verifyAssetPresent(asset2, false);
+        verifyAssetPresent(asset3, false);
+        Assert.assertFalse(new File(_folder, "subdir1").exists());  // make sure the created folder was removed
         }
 
     /*

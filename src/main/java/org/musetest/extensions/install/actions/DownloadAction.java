@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
-public class DownloadAction implements AssetInstallerAction
+public class DownloadAction extends PrepareFoldersAction
     {
     @Override
     public Type getType()
@@ -21,11 +21,17 @@ public class DownloadAction implements AssetInstallerAction
     @Override
     public boolean performAction(ExtensionProjectAsset asset, File folder, Map<String, String> parameters, ExtensionInstallLog log)
         {
+        if (!super.performAction(asset, folder, parameters, log))
+            return false;
+
         File destination = new File(folder, asset.getDefaultPath());
         if (!destination.getParentFile().exists())
             {
             if (!destination.getParentFile().mkdirs())
-                return false; // TODO record the error
+                {
+                log.recordActionFailure(this);
+                return false;
+                }
             }
 
         try (FileOutputStream outstream = new FileOutputStream(destination);
@@ -49,8 +55,7 @@ public class DownloadAction implements AssetInstallerAction
             }
         catch (IOException e)
             {
-            // TODO log the failure
-
+            log.recordActionFailure(this);
             return false;
             }
         }

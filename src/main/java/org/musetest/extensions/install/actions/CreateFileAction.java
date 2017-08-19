@@ -10,7 +10,7 @@ import java.util.*;
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
 @SuppressWarnings("unused")  // instantiated via reflection
-public class CreateFileAction implements AssetInstallerAction
+public class CreateFileAction extends PrepareFoldersAction
     {
     @Override
     public Type getType()
@@ -21,6 +21,9 @@ public class CreateFileAction implements AssetInstallerAction
     @Override
     public boolean performAction(ExtensionProjectAsset asset, File folder, Map<String, String> parameters, ExtensionInstallLog log)
         {
+        if (!super.performAction(asset, folder, parameters, log))
+            return false;
+
         try
             {
             File target = new File(folder, asset.getDefaultPath());

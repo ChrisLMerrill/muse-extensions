@@ -23,9 +23,15 @@ public class DeleteFilesUninstaller implements ExtensionUninstaller
             files_to_remove.add(file);
             }
 
+        Collections.reverse(files_to_remove);
         for (File file : files_to_remove)
+            {
+            final File[] subfiles = file.listFiles();
+            if (subfiles != null && subfiles.length > 0)
+                continue;  // don't attempt (and fail) to remove folders that are not empty. This is, presumably, due to other extensions installing in this folder.
             if (!file.delete())
-                result.addError("Uninstall is incomplet. Unable to delete file: " + file.getPath());
+                result.addError("Uninstall is incomplete. Unable to delete file: " + file.getPath());
+            }
         return result;
         }
     }
