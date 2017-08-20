@@ -35,7 +35,7 @@ public class RemoveCommand extends MuseCommand
         try
             {
             final File project_folder = new File(System.getProperty("user.dir"));
-            final File extreg_folder = new File(project_folder, ".extreg");
+            final File extreg_folder = new File(project_folder, ExtensionRegistry.DEFAULT_FOLDER);
             ExtensionRegistry registry = new ExtensionRegistry(extreg_folder);
             ExtensionRegistryEntry entry_to_remove = null;
             for (ExtensionRegistryEntry entry : registry.listExtensions())

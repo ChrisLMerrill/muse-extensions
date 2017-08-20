@@ -82,6 +82,8 @@ public class ExtensionRegistry
         }
 
     private File _folder;
+
+    public final static String DEFAULT_FOLDER = ".extreg";
     }
 
 
