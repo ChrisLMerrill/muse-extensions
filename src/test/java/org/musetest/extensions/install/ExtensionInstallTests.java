@@ -5,7 +5,6 @@ import org.junit.*;
 import org.musetest.extensions.*;
 import org.musetest.extensions.ExtensionInfo;
 import org.musetest.extensions.registry.*;
-import sun.misc.*;
 
 import java.io.*;
 import java.nio.file.*;
@@ -26,7 +25,7 @@ public class ExtensionInstallTests
         }
 
     @Test
-    public void installAndRemoveExtension() throws IOException, ExtensionInstallationException
+    public void installAndRemoveExtension() throws IOException
         {
         ExtensionProjectAsset asset1 = createAsset("asset1.txt", "content1");
         ExtensionProjectAsset asset2 = createAsset("asset2.txt", "content2");

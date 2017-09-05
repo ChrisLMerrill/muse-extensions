@@ -52,8 +52,8 @@ public class ExtensionRegistryTests
         log.recordFileInstalled(new File(folder, "file1"));
         log.recordFileInstalled(new File(folder, "file2"));
 
-
-        Assert.fail("this test is not yet finished"); // TODO
+        Assert.assertEquals("file1", log.getInstalledFilePaths().get(0));
+        Assert.assertEquals("file2", log.getInstalledFilePaths().get(1));
         }
 
     private void checkRegistryAndNewRegistry(ExtensionRegistry registry, int num_entries, ExtensionRegistryEntry... entries) throws ExtensionRegistryException
