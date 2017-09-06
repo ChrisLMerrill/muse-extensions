@@ -48,8 +48,19 @@ public class ExtensionVersionCreateRequest
         _assets = assets;
         }
 
+    public String getDescription()
+        {
+        return _description;
+        }
+
+    public void setDescription(String description)
+        {
+        _description = description;
+        }
+
     private long _extension_id;
     private String _version_name;
+    private String _description;
     private List<ExtensionProjectAsset> _assets;
     }
 

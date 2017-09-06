@@ -46,9 +46,20 @@ public class ExtensionCreateRequest
         _auth_token = auth_token;
         }
 
+    public String getDescription()
+        {
+        return _description;
+        }
+
+    public void setDescription(String description)
+        {
+        _description = description;
+        }
+
     private String _name;
     private String _author_email;
     private String _auth_token;
+    private String _description;
     }
 
 
