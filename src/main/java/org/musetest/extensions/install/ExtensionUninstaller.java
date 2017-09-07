@@ -9,7 +9,7 @@ import java.io.*;
  */
 public interface ExtensionUninstaller
     {
-    ExtensionUninstallResult uninstall(ExtensionRegistryEntry extension, File folder);
+    ExtensionUninstallResult uninstall(ExtensionRegistryEntry extension, File folder, ExtensionRegistry registry);
     }
 
 

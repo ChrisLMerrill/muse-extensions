@@ -51,13 +51,12 @@ public class RemoveCommand extends MuseCommand
             // install the extension
             System.out.println(String.format("Removing extension: %s...", entry_to_remove.getInfo().getDisplayNameVersion()));
             ExtensionUninstaller uninstaller = ExtensionUninstallers.findUninstaller(entry_to_remove, project_folder);
-            final ExtensionUninstallResult result = uninstaller.uninstall(entry_to_remove, project_folder);
+            final ExtensionUninstallResult result = uninstaller.uninstall(entry_to_remove, project_folder, registry);
 
             if (result.isSuccess())
                 {
                 for (String warning : result.getWarnings())
                     System.out.println("WARNING: " + warning);
-                registry.remove(entry_to_remove);
                 System.out.println("successfully uninstalled extension " + entry_to_remove.getInfo().getDisplayNameVersion());
                 }
             else

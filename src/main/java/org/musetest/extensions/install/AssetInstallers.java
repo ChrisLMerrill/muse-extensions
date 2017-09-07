@@ -14,7 +14,7 @@ class AssetInstallers
         return new AssetInstaller()
             {
             @Override
-            public void install(ExtensionProjectAsset asset, File folder, ExtensionInstallLog log) throws IOException
+            public void install(ExtensionProjectAsset asset, File folder, ExtensionInstallLog log)
                 {
                 for (AssetInstallInstruction instruction : asset.getInstallInstructions())
                     {

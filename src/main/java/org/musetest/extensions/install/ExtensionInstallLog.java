@@ -2,6 +2,7 @@ package org.musetest.extensions.install;
 
 import com.fasterxml.jackson.annotation.*;
 import org.musetest.extensions.*;
+import org.musetest.extensions.registry.*;
 import org.musetest.extensions.util.*;
 
 import java.io.*;
@@ -82,9 +83,45 @@ public class ExtensionInstallLog
             _files_installed--;
         }
 
+    public boolean isRegistryUpdated()
+        {
+        return _registry_updated;
+        }
+
+    public void setRegistryUpdated(boolean registry_updated)
+        {
+        _registry_updated = registry_updated;
+        }
+
+    /**
+     * The exception message if unable to update the registry.
+     */
+    public String getRegistryUpdateMessage()
+        {
+        return _registry_update_message;
+        }
+
+    public void setRegistryUpdateMessage(String registry_update_message)
+        {
+        _registry_update_message = registry_update_message;
+        }
+
+    public ExtensionRegistryEntry getEntry()
+        {
+        return _entry;
+        }
+
+    public void setEntry(ExtensionRegistryEntry entry)
+        {
+        _entry = entry;
+        }
+
     private transient File _folder;
     private int _files_installed = 0;
     private int _failed_actions = 0;
+    private boolean _registry_updated = false;
+    private String _registry_update_message = null;
+    private ExtensionRegistryEntry _entry = null;
     private List<String> _installed_file_paths = new ArrayList<>();
     }
 

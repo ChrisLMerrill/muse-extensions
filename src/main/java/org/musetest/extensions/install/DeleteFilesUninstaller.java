@@ -11,7 +11,7 @@ import java.util.*;
 public class DeleteFilesUninstaller implements ExtensionUninstaller
     {
     @Override
-    public ExtensionUninstallResult uninstall(ExtensionRegistryEntry extension, File folder)
+    public ExtensionUninstallResult uninstall(ExtensionRegistryEntry extension, File folder, ExtensionRegistry registry)
         {
         ExtensionUninstallResult result = new ExtensionUninstallResult();
         List<File> files_to_remove = new ArrayList<>();
@@ -19,7 +19,7 @@ public class DeleteFilesUninstaller implements ExtensionUninstaller
             {
             File file = new File(folder, path);
             if (!file.exists())
-                result.addWarning("File not found: " + file.getPath());
+                result.addWarning("File to be deleted is already gone: " + file.getPath());
             files_to_remove.add(file);
             }
 
@@ -30,8 +30,18 @@ public class DeleteFilesUninstaller implements ExtensionUninstaller
             if (subfiles != null && subfiles.length > 0)
                 continue;  // don't attempt (and fail) to remove folders that are not empty. This is, presumably, due to other extensions installing in this folder.
             if (!file.delete())
-                result.addError("Uninstall is incomplete. Unable to delete file: " + file.getPath());
+                result.addError("Unable to delete file: " + file.getPath());
             }
+
+        try
+            {
+            registry.remove(extension);
+            }
+        catch (ExtensionRegistryException e)
+            {
+            result.addError("Unable to update the extension registry: " + e.getMessage());
+            }
+
         return result;
         }
     }

@@ -1,9 +1,9 @@
 package org.musetest.extensions.install;
 
-import org.musetest.extensions.install.*;
 import org.reflections.*;
 import org.slf4j.*;
 
+import java.lang.reflect.*;
 import java.util.*;
 
 /**
@@ -20,6 +20,8 @@ public class AssetInstallerActions
             ACTIONS = new HashSet<>();
             for (Class<? extends AssetInstallerAction> action_class : types)
                 {
+                if (Modifier.isAbstract(action_class.getModifiers()))
+                    continue;
                 try
                     {
                     AssetInstallerAction action = action_class.newInstance();
@@ -27,7 +29,7 @@ public class AssetInstallerActions
                     }
                 catch (Exception e)
                     {
-                    LOG.error(String.format("Unable to instantiate and AssetInstallAction from class %s due to %s", action_class.getName(), e.getMessage()));
+                    LOG.error(String.format("Unable to instantiate an instance of %s due to %s", action_class.getName(), e.getMessage()));
                     }
                 }
             }

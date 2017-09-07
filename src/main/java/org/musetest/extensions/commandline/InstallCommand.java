@@ -61,13 +61,16 @@ public class InstallCommand extends MuseCommand
 
             // install the extension
             System.out.println(String.format("Installing extension: %s...", info.getDisplayNameVersion()));
-            ExtensionInstallLog log = ExtensionInstallers.find(info).install(info, project_folder);
-
             ExtensionRegistry registry = new ExtensionRegistry(extreg_folder);
-            final ExtensionRegistryEntry entry = new ExtensionRegistryEntry();
-            entry.setInfo(info);
-            entry.setLog(log);
-            registry.add(entry);
+            ExtensionInstallLog log = ExtensionInstallers.find(info).install(info, project_folder, registry);
+
+            System.out.println(String.format("%d assets installed successfully.", log.getNumberFilesInstalled()));
+            if (log.getNumberActionFailures() > 0)
+                System.out.println(String.format("%d install actions failed.", log.getNumberActionFailures()));
+            if (log.isRegistryUpdated())
+                System.out.println(String.format("%s added to the extension registry.", info.getDisplayNameVersion()));
+            else if (log.getRegistryUpdateMessage() != null)
+                System.out.println("The extension registry could not be updated due to: " + log.getRegistryUpdateMessage());
 
             System.out.println("done.");
             }

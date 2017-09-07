@@ -38,16 +38,19 @@ public class ExtensionInstallTests
         extension.setAssets(assets);
 
         final ExtensionInstaller installer = ExtensionInstallers.find(extension);
-        ExtensionInstallLog log = installer.install(extension, _folder);
+        final File registry_folder = new File(_folder, ".reg");
+        Assert.assertTrue("Unable to create registry folder", registry_folder.mkdir());
+        ExtensionInstallLog log = installer.install(extension, _folder, new ExtensionRegistry(registry_folder));
         Assert.assertEquals(0, log.getNumberActionFailures());
+        Assert.assertTrue(log.isRegistryUpdated());
+        Assert.assertNotNull(log.getEntry());
 
         verifyAssetPresent(asset1, true);
         verifyAssetPresent(asset2, true);
         verifyAssetPresent(asset3, true);
 
         // remove it
-        final ExtensionRegistryEntry entry = new ExtensionRegistryEntry(new ExtensionInfo(1L, "ext1", "me", 1L, "1.0"), log);
-        final ExtensionUninstallResult result = ExtensionUninstallers.findUninstaller(entry, _folder).uninstall(entry, _folder);
+        final ExtensionUninstallResult result = ExtensionUninstallers.findUninstaller(log.getEntry(), _folder).uninstall(log.getEntry(), _folder, );
         Assert.assertTrue(result.isSuccess());
         verifyAssetPresent(asset1, false);
         verifyAssetPresent(asset2, false);

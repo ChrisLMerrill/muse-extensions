@@ -9,6 +9,6 @@ import java.io.*;
  */
 public interface AssetInstaller
     {
-    void install(ExtensionProjectAsset asset, File folder, ExtensionInstallLog log) throws IOException;
+    void install(ExtensionProjectAsset asset, File folder, ExtensionInstallLog log);
     }
 
