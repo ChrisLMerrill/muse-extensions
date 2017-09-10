@@ -58,10 +58,34 @@ public class ExtensionVersionCreateRequest
         _description = description;
         }
 
+    public String getAuthenticationToken()
+        {
+        return _auth_token;
+        }
+
+    public void setAuthenticationToken(String auth_token)
+        {
+        _auth_token = auth_token;
+        }
+
     private long _extension_id;
     private String _version_name;
     private String _description;
+    private String _auth_token;
     private List<ExtensionProjectAsset> _assets;
+
+    @Override
+    public boolean equals(Object obj)
+        {
+        if (!(obj instanceof ExtensionVersionCreateRequest))
+            return false;
+        ExtensionVersionCreateRequest other = (ExtensionVersionCreateRequest) obj;
+
+        return _extension_id == other._extension_id
+            && Objects.equals(_version_name, other._version_name)
+            && Objects.equals(_description, other._description)
+            && Objects.equals(_assets, other._assets);
+        }
     }
 
 
