@@ -19,6 +19,7 @@ public interface AssetInstallerAction
         DeleteFile,
         Download,
         UnzipAll,
+        UnzipOneAs,
         }
     }
 
