@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class AssetInstallInstruction
     {
+    @SuppressWarnings("unused") // needed for JSON deserialization
     public AssetInstallInstruction()
         {
         }
@@ -21,6 +22,7 @@ public class AssetInstallInstruction
         return _action_name;
         }
 
+    @SuppressWarnings("unused")  // needed for JSON deserialization
     public void setActionName(String action_name)
         {
         _action_name = action_name;
@@ -31,9 +33,15 @@ public class AssetInstallInstruction
         return _parameters;
         }
 
+    @SuppressWarnings("unused")  // needed for JSON deserialization
     public void setParameters(Map<String, String> parameters)
         {
         _parameters = parameters;
+        }
+
+    public String renderDescription()
+        {
+        return _action_name;
         }
 
     private String _action_name;

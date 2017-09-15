@@ -22,6 +22,8 @@ public class UnzipOneAsAction implements AssetInstallerAction
     @Override
     public boolean performAction(ExtensionProjectAsset asset, File folder, Map<String, String> parameters, ExtensionInstallLog log)
         {
+        log.recordMessage(String.format("Unzip %s from %s", parameters.get(FILENAME_PARAM), asset.getDefaultPath()));
+
         try
             {
             File source_file = new File(folder, asset.getDefaultPath());

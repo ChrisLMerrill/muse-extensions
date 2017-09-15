@@ -24,6 +24,8 @@ public class DownloadAction extends PrepareFoldersAction
         if (!super.performAction(asset, folder, parameters, log))
             return false;
 
+        log.recordMessage(String.format("Download: %s to %s", asset.getUrl(), asset.getDefaultPath()));
+
         File destination = new File(folder, asset.getDefaultPath());
         if (!destination.getParentFile().exists())
             {

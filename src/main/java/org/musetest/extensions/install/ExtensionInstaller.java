@@ -3,6 +3,7 @@ package org.musetest.extensions.install;
 import org.musetest.extensions.*;
 import org.musetest.extensions.registry.*;
 
+import javax.annotation.*;
 import java.io.*;
 
 /**
@@ -10,6 +11,6 @@ import java.io.*;
  */
 public interface ExtensionInstaller
     {
-    ExtensionInstallLog install(ExtensionInfo extension, File folder, ExtensionRegistry registry);
+    void install(ExtensionInfo extension, File folder, ExtensionRegistry registry, @Nullable ExtensionInstallLog log);
     }
 

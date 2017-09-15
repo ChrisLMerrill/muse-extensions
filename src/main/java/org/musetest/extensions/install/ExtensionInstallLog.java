@@ -1,9 +1,9 @@
 package org.musetest.extensions.install;
 
-import com.fasterxml.jackson.annotation.*;
 import org.musetest.extensions.*;
 import org.musetest.extensions.registry.*;
 import org.musetest.extensions.util.*;
+import org.slf4j.*;
 
 import java.io.*;
 import java.util.*;
@@ -11,10 +11,11 @@ import java.util.*;
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
+@SuppressWarnings("unused") // public API used outside this projet
 public class ExtensionInstallLog
     {
-    @SuppressWarnings("unused")
-    private ExtensionInstallLog() // needed for deserialization
+    @SuppressWarnings("unused") // required for deserialization
+    private ExtensionInstallLog()
         {
         }
 
@@ -40,14 +41,16 @@ public class ExtensionInstallLog
         _installed_file_paths.add(RelativePath.get(_folder, destination).toString());
         }
 
-    public void recordActionFailure(AssetInstallInstruction instruction)
+    void recordActionFailure(AssetInstallInstruction instruction)
         {
+        recordMessage("Asset installation failed: " + instruction.renderDescription());
         _failed_actions++;
         }
 
     public void recordActionFailure(AssetInstallerAction action)
         {
         _failed_actions++;
+        recordMessage("Action failed: " + action.getType().name());
         }
 
     public int getNumberActionFailures()
@@ -81,6 +84,7 @@ public class ExtensionInstallLog
         String path = RelativePath.get(_folder, target).toString();
         if (_installed_file_paths.remove(path))
             _files_installed--;
+        recordMessage("delete file: " + target);
         }
 
     public boolean isRegistryUpdated()
@@ -88,32 +92,62 @@ public class ExtensionInstallLog
         return _registry_updated;
         }
 
-    public void setRegistryUpdated(boolean registry_updated)
+    void setRegistryUpdated(boolean registry_updated)
         {
         _registry_updated = registry_updated;
+        recordMessage("Extension Registry updated: " + registry_updated);
         }
 
     /**
      * The exception message if unable to update the registry.
+     * @return The message
      */
     public String getRegistryUpdateMessage()
         {
         return _registry_update_message;
         }
 
-    public void setRegistryUpdateMessage(String registry_update_message)
+    void setRegistryUpdateMessage(String registry_update_message)
         {
         _registry_update_message = registry_update_message;
+        recordMessage(registry_update_message);
         }
 
+    @SuppressWarnings("WeakerAccess")
     public ExtensionRegistryEntry getEntry()
         {
         return _entry;
         }
 
+    @SuppressWarnings("WeakerAccess")
     public void setEntry(ExtensionRegistryEntry entry)
         {
         _entry = entry;
+        }
+
+    public void recordMessage(String text)
+        {
+        final Message message = new Message(System.currentTimeMillis(), text);
+        _messages.add(message);
+        for (MessageListener listener : _listeners)
+            listener.messageAdded(message);
+        }
+
+    public void addMessageListener(MessageListener listener)
+        {
+        _listeners.add(listener);
+        }
+
+    public void removeMessageListener(MessageListener listener)
+        {
+        _listeners.remove(listener);
+        }
+
+    public void setFolder(File folder)
+        {
+        if (_folder != null)
+            LOG.warn("");
+        _folder = folder;
         }
 
     private transient File _folder;
@@ -123,6 +157,32 @@ public class ExtensionInstallLog
     private String _registry_update_message = null;
     private ExtensionRegistryEntry _entry = null;
     private List<String> _installed_file_paths = new ArrayList<>();
+    private List<Message> _messages = new ArrayList<>();
+    private transient List<MessageListener> _listeners = new ArrayList<>();
+
+    public class Message
+        {
+        Message(long time, String message)
+            {
+            _time = time;
+            _message = message;
+            }
+
+        public String getText()
+            {
+            return _message;
+            }
+
+        long _time;
+        String _message;
+        }
+
+    public interface MessageListener
+        {
+        void messageAdded(Message message);
+        }
+
+    private final static Logger LOG = LoggerFactory.getLogger(ExtensionInstallLog.class);
     }
 
 

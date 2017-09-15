@@ -38,6 +38,18 @@ public class ExtensionProjectAsset
         _content = content;
         }
 
+    @SuppressWarnings("unused")  // needed for JSON deserialization
+    public String getStringContent()
+        {
+        return new String(_content);
+        }
+
+    @SuppressWarnings("unused")  // needed for JSON deserialization
+    public void setStringContent(String content)
+        {
+        _content = content.getBytes();
+        }
+
     public List<AssetInstallInstruction> getInstallInstructions()
         {
         return _instructions;

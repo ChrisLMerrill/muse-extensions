@@ -17,6 +17,7 @@ import java.io.*;
 public class InstallCommand extends MuseCommand
     {
     @Arguments(description = "id of the extension version to install", required = true)
+    @SuppressWarnings("WeakerAccess")
     public String extension_id;
 
     @Override
@@ -62,7 +63,8 @@ public class InstallCommand extends MuseCommand
             // install the extension
             System.out.println(String.format("Installing extension: %s...", info.getDisplayNameVersion()));
             ExtensionRegistry registry = new ExtensionRegistry(extreg_folder);
-            ExtensionInstallLog log = ExtensionInstallers.find(info).install(info, project_folder, registry);
+            ExtensionInstallLog log = new ExtensionInstallLog(project_folder);
+            ExtensionInstallers.find(info).install(info, project_folder, registry, log);
 
             System.out.println(String.format("%d assets installed successfully.", log.getNumberFilesInstalled()));
             if (log.getNumberActionFailures() > 0)

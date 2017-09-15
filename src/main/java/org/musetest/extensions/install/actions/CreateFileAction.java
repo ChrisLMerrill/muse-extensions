@@ -24,6 +24,7 @@ public class CreateFileAction extends PrepareFoldersAction
         if (!super.performAction(asset, folder, parameters, log))
             return false;
 
+        log.recordMessage("Create File: " + asset.getDefaultPath());
         try
             {
             File target = new File(folder, asset.getDefaultPath());

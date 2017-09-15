@@ -15,9 +15,12 @@ public class ExtensionInstallers
         return new ExtensionInstaller()
             {
             @Override
-            public ExtensionInstallLog install(ExtensionInfo extension, File folder, ExtensionRegistry registry)
+            public void install(ExtensionInfo extension, File folder, ExtensionRegistry registry, ExtensionInstallLog log)
                 {
-                final ExtensionInstallLog log = new ExtensionInstallLog(folder);
+                if (log == null)
+                    log = new ExtensionInstallLog(folder);
+                log.setFolder(folder);
+                log.recordMessage("Starting installation of extension: " + extension.getDisplayNameVersion());
                 for (ExtensionProjectAsset asset : extension.getAssets())
                     AssetInstallers.find(asset).install(asset, folder, log);
 
@@ -36,7 +39,10 @@ public class ExtensionInstallers
                         log.setRegistryUpdateMessage(e.getMessage());
                         }
                     }
-                return log;
+                if (log.getNumberActionFailures() == 0 || log.isRegistryUpdated())
+                    log.recordMessage("Installation successful.");
+                else
+                    log.recordMessage("Installation FAILED.");
                 }
             };
         }

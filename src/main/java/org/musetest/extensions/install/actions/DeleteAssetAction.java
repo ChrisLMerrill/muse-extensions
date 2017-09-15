@@ -20,6 +20,7 @@ public class DeleteAssetAction implements AssetInstallerAction
     @Override
     public boolean performAction(ExtensionProjectAsset asset, File folder, Map<String, String> parameters, ExtensionInstallLog log)
         {
+        log.recordMessage("Delete File: " + asset.getDefaultPath());
         File target = new File(folder, asset.getDefaultPath());
         if (!target.exists())
             return false;

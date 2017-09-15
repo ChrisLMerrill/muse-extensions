@@ -41,7 +41,8 @@ public class ExtensionInstallTests
         final File registry_folder = new File(_folder, ".reg");
         Assert.assertTrue("Unable to create registry folder", registry_folder.mkdir());
         ExtensionRegistry registry = new ExtensionRegistry(registry_folder);
-        ExtensionInstallLog log = installer.install(extension, _folder, registry);
+        ExtensionInstallLog log = new ExtensionInstallLog(_folder);
+        installer.install(extension, _folder, registry, log);
         Assert.assertEquals(0, log.getNumberActionFailures());
         Assert.assertTrue(log.isRegistryUpdated());
         Assert.assertNotNull(log.getEntry());

@@ -22,6 +22,7 @@ public class UnzipAction implements AssetInstallerAction
     @Override
     public boolean performAction(ExtensionProjectAsset asset, File folder, Map<String, String> parameters, ExtensionInstallLog log)
         {
+        log.recordMessage(String.format("Unzip: %s", asset.getDefaultPath()));
         try
             {
             File source_file = new File(folder, asset.getDefaultPath());
@@ -46,9 +47,6 @@ public class UnzipAction implements AssetInstallerAction
             {
             // log the error
             return false;
-            }
-        finally
-            {
             }
         }
     }
