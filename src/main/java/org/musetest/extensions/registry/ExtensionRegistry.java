@@ -59,10 +59,11 @@ public class ExtensionRegistry
         try (FileOutputStream outstream = new FileOutputStream(file))
             {
             mapper.writerWithDefaultPrettyPrinter().writeValue(outstream, entry);
+            outstream.flush();
             }
         catch (IOException e)
             {
-            throw new ExtensionRegistryException(String.format("Unable to save entry into the extension registry, filename=%s", filename), e);
+            throw new ExtensionRegistryException(String.format("Unable to save entry into the extension registry (filename=%s) due to: %s", filename, e.getMessage()), e);
             }
         }
 

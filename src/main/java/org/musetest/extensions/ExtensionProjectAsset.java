@@ -41,13 +41,19 @@ public class ExtensionProjectAsset
     @SuppressWarnings("unused")  // needed for JSON deserialization
     public String getStringContent()
         {
-        return new String(_content);
+        if (_content == null)
+            return null;
+        else
+            return new String(_content);
         }
 
     @SuppressWarnings("unused")  // needed for JSON deserialization
     public void setStringContent(String content)
         {
-        _content = content.getBytes();
+        if (content == null)
+            _content = null;
+        else
+            _content = content.getBytes();
         }
 
     public List<AssetInstallInstruction> getInstallInstructions()
