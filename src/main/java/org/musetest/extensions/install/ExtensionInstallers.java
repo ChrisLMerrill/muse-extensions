@@ -22,7 +22,11 @@ public class ExtensionInstallers
                 log.setFolder(folder);
                 log.recordMessage("Starting installation of extension: " + extension.getDisplayNameVersion());
                 for (ExtensionProjectAsset asset : extension.getAssets())
+                    {
                     AssetInstallers.find(asset).install(asset, folder, log);
+                    if (log.getNumberActionFailures() > 0)
+                        break;
+                    }
 
                 if (log.getNumberActionFailures() == 0)
                     {

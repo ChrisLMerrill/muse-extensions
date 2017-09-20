@@ -19,8 +19,14 @@ class AssetInstallers
                 for (AssetInstallInstruction instruction : asset.getInstallInstructions())
                     {
                     AssetInstallerAction action = AssetInstallerActions.findImplementation(AssetInstallerAction.Type.valueOf(instruction.getActionName()));
-                    if (action != null && !action.performAction(asset, folder, instruction.getParameters(), log))
-                        log.recordActionFailure(instruction);
+                    if (action != null)
+                        {
+                        if (!action.performAction(asset, folder, instruction.getParameters(), log))
+                            {
+                            log.recordActionFailure(instruction);
+                            break;
+                            }
+                        }
                     }
                 }
             };
