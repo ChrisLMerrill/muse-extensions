@@ -1,6 +1,7 @@
 package org.musetest.extensions.registry;
 
 import com.fasterxml.jackson.databind.*;
+import org.slf4j.*;
 
 import java.io.*;
 import java.util.*;
@@ -14,6 +15,8 @@ public class ExtensionRegistry
     public ExtensionRegistry(File folder)
         {
         _folder = folder;
+        if (!folder.exists() && !folder.mkdirs())
+            LOG.error(String.format("Unable to create the extension registry folder (%s). Future extension registry updates will likely fail.", folder.getPath()));
         }
 
     public List<ExtensionRegistryEntry> listExtensions() throws ExtensionRegistryException
@@ -85,6 +88,8 @@ public class ExtensionRegistry
     private File _folder;
 
     public final static String DEFAULT_FOLDER = ".extreg";
+
+    private final static Logger LOG = LoggerFactory.getLogger(ExtensionRegistry.class);
     }
 
 

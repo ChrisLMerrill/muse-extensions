@@ -54,11 +54,6 @@ public class InstallCommand extends MuseCommand
             // update the extension registry
             final File project_folder = new File(System.getProperty("user.dir"));
             final File extreg_folder = new File(project_folder, ExtensionRegistry.DEFAULT_FOLDER);
-            if (!extreg_folder.exists() && !extreg_folder.mkdirs())
-                {
-                System.out.println("Unable to create the extension registry folder: " + extreg_folder.getPath());
-                return;
-                }
 
             // install the extension
             System.out.println(String.format("Installing extension: %s...", info.getDisplayNameVersion()));
