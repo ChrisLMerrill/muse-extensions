@@ -30,7 +30,10 @@ public class UnzipOneAsAction implements AssetInstallerAction
             if (!source_file.exists())
                 return false;
             ZipFile zipfile = new ZipFile(source_file);
-            ZipEntry entry = zipfile.entries().nextElement();
+            final Enumeration<? extends ZipEntry> entries = zipfile.entries();
+            ZipEntry entry = entries.nextElement();
+            while (entry.getSize() == 0)  // skip subfolders
+	            entry = entries.nextElement();
             String filename = parameters.get(FILENAME_PARAM);
             if (filename == null)
                 {

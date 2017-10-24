@@ -93,6 +93,31 @@ public class AssetInstallerActionTests
         }
 
     @Test
+    public void unzipOneAsActionWithSubfolder() throws URISyntaxException, IOException
+        {
+        ExtensionProjectAsset asset = new ExtensionProjectAsset();
+        final String archive_filename = "testarchive_with_subfolder.zip";
+        asset.setDefaultPath(archive_filename);
+
+        // copy the test file into the project folder
+        Files.copy(getClass().getClassLoader().getResourceAsStream(archive_filename), new File(_folder, archive_filename).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put(UnzipOneAsAction.FILENAME_PARAM, "file.ext");
+        boolean result = new UnzipOneAsAction().performAction(asset, _folder, parameters, new ExtensionInstallLog(_folder));
+
+        Assert.assertTrue(result);
+        File original = new File(_folder, "testfile.txt");
+        Assert.assertFalse(original.exists());
+        File target = new File(_folder, "file.ext");
+        Assert.assertTrue(target.exists());
+        final Scanner scanner = new Scanner(target);
+        String content = scanner.useDelimiter("\\Z").next();
+        scanner.close();
+        Assert.assertEquals("This is a test file.", content);
+        }
+
+    @Test
     public void unzipActionNestedFile() throws IOException
         {
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
