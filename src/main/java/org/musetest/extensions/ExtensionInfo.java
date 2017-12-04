@@ -100,6 +100,16 @@ public class ExtensionInfo
         _ver_date = ver_date;
         }
 
+    public String getAuthorUrl()
+	    {
+	    return _author_url;
+	    }
+
+    public void setAuthorUrl(String url)
+	    {
+	    _author_url = url;
+	    }
+
     public List<ExtensionProjectAsset> getAssets()
         {
         return _assets;
@@ -131,6 +141,7 @@ public class ExtensionInfo
             && Objects.equals(_ver_name, other._ver_name)
             && Objects.equals(_ver_date, other._ver_date)
             && Objects.equals(_ver_desc, other._ver_desc)
+            && Objects.equals(_author_url, other._author_url)
             && Objects.equals(_assets, other._assets);
         }
 
@@ -143,6 +154,7 @@ public class ExtensionInfo
     private String _ver_name;
     private String _ver_desc;
     private Date _ver_date;
+    private String _author_url;
 
     private List<ExtensionProjectAsset> _assets;
     }
