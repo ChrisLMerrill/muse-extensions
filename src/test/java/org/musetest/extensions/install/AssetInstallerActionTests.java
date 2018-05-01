@@ -6,7 +6,6 @@ import org.musetest.extensions.*;
 import org.musetest.extensions.install.actions.*;
 
 import java.io.*;
-import java.net.*;
 import java.nio.file.*;
 import java.util.*;
 
@@ -47,7 +46,7 @@ public class AssetInstallerActionTests
         }
 
     @Test
-    public void unzipAction() throws URISyntaxException, IOException
+    public void unzipAction() throws IOException
         {
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
         final String archive_filename = "testarchive.zip";
@@ -68,7 +67,7 @@ public class AssetInstallerActionTests
         }
 
     @Test
-    public void unzipOneAsAction() throws URISyntaxException, IOException
+    public void unzipOneAsAction() throws IOException
         {
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
         final String archive_filename = "testarchive.zip";
@@ -93,7 +92,7 @@ public class AssetInstallerActionTests
         }
 
     @Test
-    public void unzipOneAsActionWithSubfolder() throws URISyntaxException, IOException
+    public void unzipOneAsActionWithSubfolder() throws IOException
         {
         ExtensionProjectAsset asset = new ExtensionProjectAsset();
         final String archive_filename = "testarchive_with_subfolder.zip";
