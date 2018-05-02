@@ -20,6 +20,7 @@ public interface AssetInstallerAction
         Download,
         UnzipAll,
         UnzipOneAs,
+        UntargzOneAs,
         }
     }
 
