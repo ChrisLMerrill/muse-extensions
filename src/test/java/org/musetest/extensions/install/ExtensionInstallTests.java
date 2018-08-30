@@ -16,7 +16,7 @@ import java.util.*;
 public class ExtensionInstallTests
     {
     @Test
-    public void installAsset() throws IOException, ExtensionRegistryException
+    public void installAsset() throws IOException
         {
         ExtensionProjectAsset asset = createAsset("asset.txt", "abc123");
         final AssetInstaller installer = AssetInstallers.find(asset);

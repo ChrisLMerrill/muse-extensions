@@ -1,6 +1,9 @@
 package org.musetest.extensions.registry;
 
 import com.fasterxml.jackson.databind.*;
+import org.musetest.core.*;
+import org.musetest.core.resource.*;
+import org.musetest.core.resource.storage.*;
 import org.slf4j.*;
 
 import java.io.*;
@@ -12,6 +15,22 @@ import java.util.regex.*;
  */
 public class ExtensionRegistry
     {
+    @SuppressWarnings("unused")  // this is the public API for expected use
+    public ExtensionRegistry(MuseProject project)
+        {
+        ResourceStorage storage = project.getResourceStorage();
+        if (!(storage instanceof FolderIntoMemoryResourceStorage))
+            {
+            String message = "Unable to use extensions with project resource storage type: " + storage.getClass().getSimpleName();
+            LOG.error(message);
+            throw new IllegalArgumentException(message);
+            }
+
+        _folder = ((FolderIntoMemoryResourceStorage) storage).getBaseLocation();
+        if (!_folder.exists() && !_folder.mkdirs())
+            LOG.error(String.format("Unable to create the extension registry folder (%s). Future extension registry updates will likely fail.", _folder.getPath()));
+        }
+
     public ExtensionRegistry(File folder)
         {
         _folder = folder;
@@ -23,14 +42,10 @@ public class ExtensionRegistry
         {
         List<ExtensionRegistryEntry> entries = new ArrayList<>();
 
-        File[] files = _folder.listFiles(new FileFilter()
+        File[] files = _folder.listFiles(pathname ->
             {
-            @Override
-            public boolean accept(File pathname)
-                {
-                Pattern pattern = Pattern.compile("\\d+-\\d+\\.json");
-                return pattern.matcher(pathname.getName()).matches();
-                }
+            Pattern pattern = Pattern.compile("\\d+-\\d+\\.json");
+            return pattern.matcher(pathname.getName()).matches();
             });
         if (files != null)
             {
