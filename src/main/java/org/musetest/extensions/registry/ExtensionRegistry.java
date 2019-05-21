@@ -26,7 +26,7 @@ public class ExtensionRegistry
             throw new IllegalArgumentException(message);
             }
 
-        _folder = ((FolderIntoMemoryResourceStorage) storage).getBaseLocation();
+        _folder = new File(((FolderIntoMemoryResourceStorage) storage).getBaseLocation(), DEFAULT_FOLDER);
         if (!_folder.exists() && !_folder.mkdirs())
             LOG.error(String.format("Unable to create the extension registry folder (%s). Future extension registry updates will likely fail.", _folder.getPath()));
         }
