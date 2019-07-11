@@ -6,12 +6,6 @@ repositories {
     jcenter()
 }
 
-tasks.withType(JavaCompile)
-    {
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
-    }
-
 version = 0.3
 group = 'org.musetest'
 
