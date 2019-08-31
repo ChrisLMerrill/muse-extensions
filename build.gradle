@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 repositories {
     mavenLocal()
@@ -30,6 +30,19 @@ task sourcesJar(type: Jar) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 artifacts {
