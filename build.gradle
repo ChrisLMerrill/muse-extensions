@@ -10,7 +10,7 @@ version = 0.3
 group = 'org.musetest'
 
 dependencies {
-    compile 'org.musetest:muse-core:0.14+'
+    compile 'org.musetest:muse-core:0.15'
     compile 'org.reflections:reflections:0.9.10'   // finding classes at runtime
     compile 'com.google.guava:guava:19.0'
     compile 'org.glassfish.jersey.core:jersey-client:2.25.1'
