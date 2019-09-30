@@ -50,6 +50,12 @@ artifacts {
     archives javadocJar
 }
 
+// until AppEngine upgrades to 9+...
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 test {
     testLogging.showStandardStreams = true
 }
@@ -57,4 +63,3 @@ test {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.9'
 }
-
