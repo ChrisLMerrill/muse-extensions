@@ -127,6 +127,12 @@ public class ExtensionInfo
         }
 
     @Override
+    public String toString()
+        {
+        return String.format("%s %s - %s", _ext_name, _ver_name, _ext_desc);
+        }
+
+    @Override
     public boolean equals(Object obj)
         {
         if (!(obj instanceof ExtensionInfo))
