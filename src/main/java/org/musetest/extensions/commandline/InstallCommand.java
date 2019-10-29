@@ -2,7 +2,7 @@ package org.musetest.extensions.commandline;
 
 import io.airlift.airline.*;
 import org.musetest.core.commandline.*;
-import org.musetest.extensions.*;
+import org.musetest.extensions.api.*;
 import org.musetest.extensions.install.*;
 import org.musetest.extensions.registry.*;
 

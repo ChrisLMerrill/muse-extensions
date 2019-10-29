@@ -1,6 +1,6 @@
 package org.musetest.extensions.install.actions;
 
-import org.musetest.extensions.*;
+import org.musetest.extensions.api.*;
 import org.musetest.extensions.install.*;
 
 import java.io.*;

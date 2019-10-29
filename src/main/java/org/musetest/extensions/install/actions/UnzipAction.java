@@ -1,7 +1,7 @@
 package org.musetest.extensions.install.actions;
 
 import com.google.common.io.*;
-import org.musetest.extensions.*;
+import org.musetest.extensions.api.*;
 import org.musetest.extensions.install.*;
 
 import java.io.*;

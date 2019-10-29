@@ -3,7 +3,7 @@ package org.musetest.extensions.install.actions;
 import org.apache.commons.compress.archivers.tar.*;
 import org.apache.commons.compress.compressors.gzip.*;
 import org.apache.commons.io.*;
-import org.musetest.extensions.*;
+import org.musetest.extensions.api.*;
 import org.musetest.extensions.install.*;
 import org.slf4j.*;
 

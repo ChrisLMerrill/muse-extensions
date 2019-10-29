@@ -1,4 +1,4 @@
-package org.musetest.extensions.webservice;
+package org.musetest.extensions.api;
 
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)

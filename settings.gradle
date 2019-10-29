@@ -15,4 +15,7 @@ include 'api'
 include 'services:webservice'
 */
 
+include "api"
+
 rootProject.name = 'muse-extensions'
+project(":api").name = "muse-extensions-api"

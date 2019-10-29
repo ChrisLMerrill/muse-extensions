@@ -2,3 +2,5 @@
 muse-extensions.iml
 build/
 /.gradle
+/out/
+/build/

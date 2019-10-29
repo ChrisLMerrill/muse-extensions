@@ -1,6 +1,4 @@
-package org.musetest.extensions.webservice;
-
-import org.musetest.extensions.*;
+package org.musetest.extensions.api;
 
 import java.util.*;
 

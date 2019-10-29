@@ -2,9 +2,9 @@ package org.musetest.extenions.registry;
 
 import org.apache.commons.io.*;
 import org.junit.*;
-import org.musetest.extensions.*;
 import org.musetest.extensions.install.*;
 import org.musetest.extensions.registry.*;
+import org.musetest.extensions.api.*;
 
 import java.io.*;
 import java.nio.file.*;

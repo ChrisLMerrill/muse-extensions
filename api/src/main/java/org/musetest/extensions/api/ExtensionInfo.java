@@ -1,4 +1,4 @@
-package org.musetest.extensions;
+package org.musetest.extensions.api;
 
 import com.fasterxml.jackson.annotation.*;
 

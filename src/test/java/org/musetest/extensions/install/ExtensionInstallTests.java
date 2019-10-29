@@ -2,8 +2,7 @@ package org.musetest.extensions.install;
 
 import org.apache.commons.io.*;
 import org.junit.*;
-import org.musetest.extensions.*;
-import org.musetest.extensions.ExtensionInfo;
+import org.musetest.extensions.api.*;
 import org.musetest.extensions.registry.*;
 
 import java.io.*;

@@ -1,6 +1,6 @@
 package org.musetest.extensions.install;
 
-import org.musetest.extensions.*;
+import org.musetest.extensions.api.*;
 import org.musetest.extensions.registry.*;
 
 import javax.annotation.*;
