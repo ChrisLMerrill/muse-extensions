@@ -25,12 +25,12 @@ dependencies {
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
 
@@ -62,6 +62,10 @@ test {
     testLogging.showStandardStreams = true
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.9'
+task installDeps {
+	dependsOn gradle.includedBuilds*.task(':publishToMavenLocal')
+}
+
+wrapper {
+    gradleVersion = '5.6.2'
 }
