@@ -1,6 +1,7 @@
 /.idea
 muse-extensions.iml
 build/
+api/.gradle
 /.gradle
 /out/
 /build/
