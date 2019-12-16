@@ -30,7 +30,10 @@ public class DeleteFilesUninstaller implements ExtensionUninstaller
             if (subfiles != null && subfiles.length > 0)
                 continue;  // don't attempt (and fail) to remove folders that are not empty. This is, presumably, due to other extensions installing in this folder.
             if (!file.delete())
-                result.addError("Unable to delete file: " + file.getPath());
+                {
+                result.addError("Unable to delete file: " + file.getPath() + " - will try again at shutdown.");
+                file.deleteOnExit();
+                }
             }
 
         try
