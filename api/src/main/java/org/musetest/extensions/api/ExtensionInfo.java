@@ -126,10 +126,24 @@ public class ExtensionInfo
         return _ext_name + " " + _ver_name;
         }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getInstallTaskUrl()
+        {
+        return _install_task_url;
+        }
+
+    public void setInstallTaskUrl(String install_task_url)
+        {
+        _install_task_url = install_task_url;
+        }
+
     @Override
     public String toString()
         {
-        return String.format("%s %s - %s", _ext_name, _ver_name, _ext_desc);
+        if (_install_task_url == null)
+            return String.format("%s %s - %s", _ext_name, _ver_name, _ext_desc);
+        else
+            return String.format("%s %s - %s (%s)", _ext_name, _ver_name, _ext_desc, _install_task_url);
         }
 
     @Override
@@ -148,6 +162,7 @@ public class ExtensionInfo
             && Objects.equals(_ver_date, other._ver_date)
             && Objects.equals(_ver_desc, other._ver_desc)
             && Objects.equals(_author_url, other._author_url)
+            && Objects.equals(_install_task_url, other._install_task_url)
             && Objects.equals(_assets, other._assets);
         }
 
@@ -161,6 +176,7 @@ public class ExtensionInfo
     private String _ver_desc;
     private Date _ver_date;
     private String _author_url;
+    private String _install_task_url;
 
     private List<ExtensionProjectAsset> _assets;
     }

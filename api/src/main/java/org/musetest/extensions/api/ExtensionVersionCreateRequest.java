@@ -1,5 +1,7 @@
 package org.musetest.extensions.api;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.*;
 
 /**
@@ -36,6 +38,7 @@ public class ExtensionVersionCreateRequest
         _version_name = version_name;
         }
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public List<ExtensionProjectAsset> getAssets()
         {
         return _assets;
@@ -66,10 +69,22 @@ public class ExtensionVersionCreateRequest
         _auth_token = auth_token;
         }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getInstallTaskUrl()
+        {
+        return _install_task_url;
+        }
+
+    public void setInstallTaskUrl(String install_task_url)
+        {
+        _install_task_url = install_task_url;
+        }
+
     private long _extension_id;
     private String _version_name;
     private String _description;
     private String _auth_token;
+    private String _install_task_url;
     private List<ExtensionProjectAsset> _assets;
 
     @Override
