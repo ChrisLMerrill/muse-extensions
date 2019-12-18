@@ -11,6 +11,6 @@ import java.io.*;
  */
 public interface ExtensionInstaller
     {
-    void install(ExtensionInfo extension, File folder, ExtensionRegistry registry, @Nullable ExtensionInstallLog log);
+    ExtensionRegistryEntry install( ExtensionInfo extension, File folder, ExtensionRegistry registry, @Nullable ExtensionInstallLog log);
     }
 

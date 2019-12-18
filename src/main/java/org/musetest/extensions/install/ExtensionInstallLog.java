@@ -1,5 +1,6 @@
 package org.musetest.extensions.install;
 
+import com.fasterxml.jackson.annotation.*;
 import org.musetest.extensions.api.*;
 import org.musetest.extensions.registry.*;
 import org.musetest.extensions.util.*;
@@ -39,6 +40,12 @@ public class ExtensionInstallLog
         {
         _files_installed++;
         _installed_file_paths.add(RelativePath.get(_folder, destination).toString());
+        }
+
+    void recordFailure(String message)
+        {
+        recordMessage(message);
+        _failed_actions++;
         }
 
     void recordActionFailure(AssetInstallInstruction instruction)
@@ -113,17 +120,15 @@ public class ExtensionInstallLog
         recordMessage(registry_update_message);
         }
 
-    @SuppressWarnings("WeakerAccess")
-    public ExtensionRegistryEntry getEntry()
-        {
-        return _entry;
-        }
+    // property removed, stub methods retained for serialization compatibility. Remove in the future.
+    @JsonIgnore
+    @Deprecated
+    public ExtensionRegistryEntry getEntry() { return null; }
 
-    @SuppressWarnings("WeakerAccess")
-    public void setEntry(ExtensionRegistryEntry entry)
-        {
-        _entry = entry;
-        }
+    // property removed, stub methods retained for serialization compatibility. Remove in the future.
+    @JsonIgnore
+    @Deprecated
+    public void setEntry(ExtensionRegistryEntry entry) { }
 
     public void recordMessage(String text)
         {
@@ -155,7 +160,6 @@ public class ExtensionInstallLog
     private int _failed_actions = 0;
     private boolean _registry_updated = false;
     private String _registry_update_message = null;
-    private ExtensionRegistryEntry _entry = null;
     private List<String> _installed_file_paths = new ArrayList<>();
     private List<Message> _messages = new ArrayList<>();
     private transient List<MessageListener> _listeners = new ArrayList<>();
