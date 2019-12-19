@@ -20,10 +20,12 @@ public class DeleteFilesUninstaller implements ExtensionUninstaller
             File file = new File(folder, path);
             if (!file.exists())
                 result.addWarning("File to be deleted is already gone: " + file.getPath());
-            files_to_remove.add(file);
+            else
+                files_to_remove.add(file);
             }
 
         Collections.reverse(files_to_remove);
+        ExtensionFileCleaner cleaner = registry.getCleaner();
         for (File file : files_to_remove)
             {
             final File[] subfiles = file.listFiles();
@@ -31,10 +33,12 @@ public class DeleteFilesUninstaller implements ExtensionUninstaller
                 continue;  // don't attempt (and fail) to remove folders that are not empty. This is, presumably, due to other extensions installing in this folder.
             if (!file.delete())
                 {
-                result.addError("Unable to delete file: " + file.getPath() + " - will try again at shutdown.");
-                file.deleteOnExit();
+                result.addError("Unable to delete file: " + file.getPath() + " - will try again at next startup.");
+                cleaner.addFile(file);
+                //file.deleteOnExit();  // this doesn't work (because it is opened by classloader?
                 }
             }
+        cleaner.saveChanges();
 
         try
             {

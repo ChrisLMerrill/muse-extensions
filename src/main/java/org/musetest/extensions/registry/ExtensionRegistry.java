@@ -100,6 +100,11 @@ public class ExtensionRegistry
         return String.format("%d-%d.json", entry.getInfo().getExtensionId(), entry.getInfo().getVersionId());
         }
 
+    public ExtensionFileCleaner getCleaner()
+        {
+        return new ExtensionFileCleaner(_folder);
+        }
+
     private File _folder;
 
     public final static String DEFAULT_FOLDER = ".extreg";
