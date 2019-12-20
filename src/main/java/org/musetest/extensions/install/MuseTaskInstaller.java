@@ -96,6 +96,10 @@ public class MuseTaskInstaller implements ExtensionInstaller
                 log.recordFileInstalled(FileDeletedEventType.getFile(event));
                 log.recordMessage(new FileDeletedEventType().getDescription(event));
                 }
+            else if (DownloadStartedEventType.TYPE_ID.equals(event.getTypeId()))
+                log.recordMessage(new DownloadStartedEventType().getDescription(event));
+            else if (DownloadCompletedEventType.TYPE_ID.equals(event.getTypeId()))
+                log.recordMessage(new DownloadCompletedEventType().getDescription(event));
             });
 
         runner.runTest();
