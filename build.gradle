@@ -6,12 +6,12 @@ repositories {
     jcenter()
 }
 
-version = 0.6
-group = 'org.musetest'
+version = 0.7
+group = 'org.museautomation'
 
 dependencies {
-    compile 'org.musetest:muse-core:[0.20,)'  // command-line parsing
-    compile 'org.musetest:muse-extensions-api:[0.5,)'  // command-line parsing
+    compile 'org.museautomation:muse-core:[0.22,)'  // command-line parsing
+    compile 'org.museautomation:muse-extensions-api:[0.6,)'
 
     compile 'org.reflections:reflections:0.9.10'   // finding classes at runtime
     compile 'com.google.guava:guava:19.0'

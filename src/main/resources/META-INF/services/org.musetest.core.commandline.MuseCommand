@@ -1,2 +1,2 @@
-org.musetest.extensions.commandline.InstallCommand
-org.musetest.extensions.commandline.RemoveCommand
+org.museautomation.extensions.commandline.InstallCommand
+org.museautomation.extensions.commandline.RemoveCommand
