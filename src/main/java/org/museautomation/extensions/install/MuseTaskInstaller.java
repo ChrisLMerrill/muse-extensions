@@ -9,9 +9,9 @@ import org.museautomation.core.project.*;
 import org.museautomation.core.resource.json.*;
 import org.museautomation.core.resource.origin.*;
 import org.museautomation.core.resource.storage.*;
-import org.museautomation.core.steptest.*;
-import org.museautomation.core.test.*;
-import org.museautomation.core.test.plugins.*;
+import org.museautomation.core.steptask.*;
+import org.museautomation.core.task.*;
+import org.museautomation.core.task.plugins.*;
 import org.museautomation.extensions.api.*;
 import org.slf4j.*;
 
@@ -82,7 +82,7 @@ public class MuseTaskInstaller implements ExtensionInstaller
             return null;
             }
 
-        SimpleTestRunner runner = new SimpleTestRunner(context, new BasicTestConfiguration(install_task));
+        SimpleTaskRunner runner = new SimpleTaskRunner(context, new BasicTaskConfiguration(install_task));
         runner.getExecutionContext().addEventListener(event ->
             {
             // filter events into the install log
@@ -102,7 +102,7 @@ public class MuseTaskInstaller implements ExtensionInstaller
                 log.recordMessage(new DownloadCompletedEventType().getDescription(event));
             });
 
-        runner.runTest();
+        runner.runTask();
         ExtensionRegistryEntry entry = null;
         if (runner.completedNormally())
             {
