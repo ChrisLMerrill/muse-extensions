@@ -11,7 +11,7 @@ import org.museautomation.core.resource.origin.*;
 import org.museautomation.core.resource.storage.*;
 import org.museautomation.core.steptask.*;
 import org.museautomation.core.task.*;
-import org.museautomation.core.task.plugins.*;
+import org.museautomation.builtins.plugins.init.*;
 import org.museautomation.extensions.api.*;
 import org.slf4j.*;
 
@@ -49,7 +49,7 @@ public class MuseTaskInstaller implements ExtensionInstaller
 
         // prepare the installer task
         MuseProject project = new SimpleProject(new FolderIntoMemoryResourceStorage(folder));
-        SteppedTest install_task;
+        SteppedTask install_task;
         log.recordMessage("Initializing installer...");
         List<MuseResource> resources = new FromJsonFileResourceFactory().createResources(new StreamResourceOrigin(new ByteArrayInputStream(install_task_string.getBytes())), project.getClassLocator());
         if (resources.size() == 0)
@@ -58,8 +58,8 @@ public class MuseTaskInstaller implements ExtensionInstaller
             return null;
             }
 
-        if (resources.get(0) instanceof SteppedTest)
-            install_task = (SteppedTest) resources.get(0);
+        if (resources.get(0) instanceof SteppedTask)
+            install_task = (SteppedTask) resources.get(0);
         else
             {
             log.recordFailure("Installer is unexpected resource type: " + resources.get(0).getType().getName());
@@ -73,7 +73,7 @@ public class MuseTaskInstaller implements ExtensionInstaller
         context.setVariable("install", Boolean.TRUE);
         try
             {
-            project.getResourceStorage().addResource(new TestDefaultsInitializerConfiguration.TestDefaultsInitializerType().create());
+            project.getResourceStorage().addResource(new TaskDefaultsInitializerConfiguration.TaskDefaultsInitializerType().create());
             }
         catch (IOException e)
             {
