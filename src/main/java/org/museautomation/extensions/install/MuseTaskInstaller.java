@@ -58,11 +58,14 @@ public class MuseTaskInstaller implements ExtensionInstaller
             return null;
             }
 
-        if (resources.get(0) instanceof SteppedTask)
-            install_task = (SteppedTask) resources.get(0);
+        MuseResource resource = resources.get(0);
+        if (resource instanceof SteppedTask)
+            install_task = (SteppedTask) resource;
+        else if (resource instanceof SteppedTest)
+            install_task = new SteppedTask((SteppedTest)resource);
         else
             {
-            log.recordFailure("Installer is unexpected resource type: " + resources.get(0).getType().getName());
+            log.recordFailure("Installer is unexpected resource type: " + resource.getType().getName());
             return null;
             }
         log.recordMessage("Installer initialized.");
