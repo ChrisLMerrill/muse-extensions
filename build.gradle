@@ -10,7 +10,7 @@ version = 0.8
 group = 'org.museautomation'
 
 dependencies {
-    compile 'org.museautomation:muse-core:[0.26,)'  // command-line parsing
+    compile 'org.museautomation:muse-core:[0.26,)'
     compile 'org.museautomation:muse-extensions-api:[0.6,)'
 
     compile 'org.reflections:reflections:0.9.10'   // finding classes at runtime
